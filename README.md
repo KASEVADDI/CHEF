@@ -1,2 +1,33 @@
 # CHEF
-This repo has been created for storing the project works
+#create and run the cookbooks in chef
+
+# belows is the chef/cookbooks directory strcture
+#after install the chef in linux servers
+
+#server72] cd cookbooks] chef generate cookbook cookbook1
+#cd cookbook1] cd recipe
+#recipe] vim default.rb
+vim default.rb
+package "httpd" do
+action: install
+end
+service "httpd" do
+action: start
+end
+file "/var/www/html/index.html" do
+action: create
+content "welcome to devops training."
+# :wq!
+
+
+#server72] vi s.sh
+knife cookbook upload cookbook1
+knfie cookbook list
+for i in node1 node2
+do
+knife node run_list add $i "recipe[cookbook1]"
+
+
+./s.sh once run this script automatically httpd packe will be install in worker nodes
+#next automatically cookbook1 would be upload into the chef-server
+#next copy the workernode ipaddress and hit in the web
